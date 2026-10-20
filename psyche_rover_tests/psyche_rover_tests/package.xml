@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>psyche_rover_tests</name>
+  <version>0.1.0</version>
+  <description>Test suite for the Psyche hexapod: ROS-free unit tests, node tests on a ROS shim, static consistency checks and MuJoCo co-simulation tests.</description>
+  <maintainer email="you@example.com">nnb</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <!-- Deliberately no rclcpp / cv_bridge dependency: the tests compile the real node sources
+       against shim/ so they run without a ROS 2 installation. -->
+  <test_depend>python3-numpy</test_depend>
+  <test_depend>python3-yaml</test_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
