@@ -1,0 +1,2078 @@
+{
+ "totals": {
+  "PASS": 198,
+  "FAIL": 0,
+  "XFAIL": 36,
+  "XPASS": 0,
+  "SKIP": 3
+ },
+ "suites": [
+  {
+   "name": "test_kinematics",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "test_kinematics",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_gait",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "test_gait",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_gait_extended",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "joint_ranges_within_model_limits_all_gaits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "coxa range [-0.250, 0.250] rad (min margin to +/-2.6 limit: 2.35)",
+      "femur range [-0.030, 1.109] rad (min margin to +/-2.6 limit: 1.49)",
+      "tibia range [-2.071, -1.099] rad (min margin to +/-2.6 limit: 0.53)"
+     ]
+    },
+    {
+     "name": "joint_span_fits_180deg_servo_after_centering",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "coxa: needs 29 deg travel, centre of range 0.000 rad (candidate joint_offset)",
+      "femur: needs 65 deg travel, centre of range 0.539 rad (candidate joint_offset)",
+      "tibia: needs 56 deg travel, centre of range -1.585 rad (candidate joint_offset)"
+     ]
+    },
+    {
+     "name": "joint_velocity_bounded_steady_gaits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "peak joint speed over all gaits: 3.04 rad/s (limit 6.0)"
+     ]
+    },
+    {
+     "name": "joint_velocity_bounded_at_command_discontinuities",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "fwd->rev: peak joint speed 2.84 rad/s, largest foot jump 4.3 mm/step",
+      "turnL->turnR: peak joint speed 2.63 rad/s, largest foot jump 4.9 mm/step",
+      "fwd->strafe: peak joint speed 3.65 rad/s, largest foot jump 4.6 mm/step",
+      "strafe->turn: peak joint speed 3.19 rad/s, largest foot jump 5.2 mm/step",
+      "fwd->overspeed_rev: peak joint speed 3.00 rad/s, largest foot jump 4.4 mm/step"
+     ]
+    },
+    {
+     "name": "ik_reach_boundaries",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "ik_foot_under_or_behind_hip_is_finite",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "ik_fuzz_never_nan_and_flag_matches_fk",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "12172 of 200000 random targets reachable"
+     ]
+    },
+    {
+     "name": "ik_nan_input_must_be_flagged_unreachable",
+     "status": "XFAIL",
+     "xfail": "leg_ik(NaN) returns reachable=true with NaN angles (comparisons with NaN are false)",
+     "detail": "test_gait_extended.cpp:256: CHECK failed: !q.reachable || std::isfinite(q.femur)\n",
+     "infos": []
+    },
+    {
+     "name": "gait_generator_rejects_nan_command",
+     "status": "XFAIL",
+     "xfail": "GaitGenerator::set_target(NaN) poisons every foot target with NaN",
+     "detail": "test_gait_extended.cpp:267: CHECK failed: feet_finite(g)\n",
+     "infos": []
+    },
+    {
+     "name": "stride_clamp_respected_all_legs",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "largest foot excursion from neutral: 40.0 mm (clamp 40.0 mm)"
+     ]
+    },
+    {
+     "name": "reach_formula_from_readme_is_sufficient",
+     "status": "XFAIL",
+     "xfail": "README reach formula only checks MAX reach; low stand_height + short neutral_reach puts the foot inside the minimum-reach hole |femur-tibia|",
+     "detail": "test_gait_extended.cpp:339: CHECK failed: bad == 0 -- formula passed but gait unreachable at stand_height=0.04 neutral_reach=0.10 (forward)\n",
+     "infos": [
+      "67 combos passed the README formula, 3 still unreachable (first: stand_height=0.04 neutral_reach=0.10 (forward))"
+     ]
+    },
+    {
+     "name": "reach_envelope_check_with_min_and_max_is_sound",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "57 combos passed max+min envelope check, 0 unreachable"
+     ]
+    },
+    {
+     "name": "random_leg_dimensions_reachability_flag_is_honest",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "249 random robots fully reachable, 51 with unreachable targets (flagged correctly)"
+     ]
+    },
+    {
+     "name": "long_run_no_drift_no_nan",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "foot position error after 110 further cycles: 4.28e-14 m"
+     ]
+    },
+    {
+     "name": "static_stability_margin_every_step",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "smallest static stability margin: 88.4 mm (diag)"
+     ]
+    },
+    {
+     "name": "body_velocity_recovered_from_stance_feet_matches_command",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "forward   cmd (0.080,0.000,0.00) -> recovered (0.0800,-0.0000,-0.000)",
+      "reverse   cmd (-0.060,0.000,0.00) -> recovered (-0.0600,-0.0000,0.000)",
+      "strafe_l  cmd (0.000,0.060,0.00) -> recovered (0.0000,0.0600,0.000)",
+      "turn_l    cmd (0.000,0.000,0.40) -> recovered (-0.0000,-0.0000,0.398)",
+      "turn_r    cmd (0.000,0.000,-0.40) -> recovered (0.0000,0.0000,-0.398)",
+      "arc       cmd (0.050,0.000,0.25) -> recovered (0.0500,0.0001,0.250)"
+     ]
+    },
+    {
+     "name": "left_right_mirror_symmetry_forward_gait",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "tripod_groups_are_balanced",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "sit_to_stand_neutral_pose_reachable_at_every_height",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "returns_to_neutral_and_idles_after_every_scenario",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "forward   idle 0.60 s after stop",
+      "reverse   idle 0.60 s after stop",
+      "strafe_l  idle 0.60 s after stop",
+      "strafe_r  idle 0.60 s after stop",
+      "turn_l    idle 0.60 s after stop",
+      "turn_r    idle 0.60 s after stop",
+      "arc       idle 0.60 s after stop",
+      "diag      idle 0.60 s after stop",
+      "overspeed idle 0.60 s after stop"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "test_terrain_mapper",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "grid_metadata_and_value_domain",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "flat_floor_has_no_obstacles",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "flat floor: 255 free cells, 0 occupied cells"
+     ]
+    },
+    {
+     "name": "step_below_threshold_is_free_above_is_occupied",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "step_exactly_at_threshold_is_characterised",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "5.0 cm step -> 12 occupied cells; 4.5 cm step -> 0"
+     ]
+    },
+    {
+     "name": "obstacle_side_matches_scene_side",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "wall_blocks_and_occludes_what_is_behind",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "dropoff_is_flagged_but_shallow_dip_is_not",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "gentle_5deg_slope_is_traversable",
+     "status": "XFAIL",
+     "xfail": "mapper compares against a flat reference plane: any ground that rises >5 cm over its range (about 1.4 deg at 4 m) is marked occupied, so a 5 deg ramp becomes a wall",
+     "detail": "test_terrain_mapper.cpp:143: CHECK failed: count_occupied(*g) == 0 -- 247 cells of a walkable 5 deg ramp marked occupied\n",
+     "infos": []
+    },
+    {
+     "name": "very_gentle_slope_near_field_is_ok",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "1 deg slope: first phantom obstacles beyond ~2.9 m (40 cells beyond)"
+     ]
+    },
+    {
+     "name": "camera_height_calibration_sensitivity",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "camera_height error +0 cm -> 0 occupied / 255 free cells",
+      "camera_height error +2 cm -> 0 occupied / 255 free cells",
+      "camera_height error -3 cm -> 0 occupied / 255 free cells",
+      "camera_height error +6 cm -> 255 occupied / 0 free cells",
+      "camera_height error -7 cm -> 255 occupied / 0 free cells"
+     ]
+    },
+    {
+     "name": "camera_tilt_calibration_sensitivity",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "unmodelled camera tilt +0.3 deg -> 0 phantom obstacle cells within 2 m",
+      "unmodelled camera tilt +1.0 deg -> 0 phantom obstacle cells within 2 m",
+      "unmodelled camera tilt +4.0 deg -> 128 phantom obstacle cells within 2 m",
+      "unmodelled camera tilt -4.0 deg -> 148 phantom obstacle cells within 2 m"
+     ]
+    },
+    {
+     "name": "correct_tilt_parameter_cancels_a_tilted_camera",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "invalid_depth_values_are_ignored",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "sparse_dropouts_do_not_create_obstacles",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "encodings_16uc1_and_32fc1_agree",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "cells differing between 16UC1 and 32FC1: 0 / 1600"
+     ]
+    },
+    {
+     "name": "unsupported_encoding_is_rejected_with_warning",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "waits_for_camera_info",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "empty_or_truncated_images_do_not_crash_or_publish",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "deterministic_for_identical_frames",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "grid_resolution_and_extent_parameters_are_honoured",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "min_range_cut_hides_things_closer_than_015m",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_path_picker",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "open_ground_goes_straight_and_reports_found",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "everything_unknown_is_not_a_path_and_defaults_straight",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "everything_occupied_is_not_a_path",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "wall_distance_vs_min_acceptable_clearance",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "obstacle_on_left_steers_right_and_vice_versa",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "blocked-left -> heading -40 deg, blocked-right -> heading 40 deg"
+     ]
+    },
+    {
+     "name": "corridor_heading_is_recovered_across_the_fan",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "heading_never_exceeds_configured_fan",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "gap_between_obstacles_vs_footprint_width",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "gap 0.40 m -> heading 0 deg found=0",
+      "gap 0.50 m -> heading 30 deg found=1",
+      "gap 0.80 m -> heading 0 deg found=1",
+      "gap 1.00 m -> heading 0 deg found=1",
+      "gap 1.50 m -> heading 0 deg found=1"
+     ]
+    },
+    {
+     "name": "gap_exactly_footprint_width_is_characterised",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "0.60 m gap (= footprint) -> heading -25 deg found=1"
+     ]
+    },
+    {
+     "name": "swath_sampling_is_left_right_symmetric",
+     "status": "XFAIL",
+     "xfail": "swath loop `for (lat=-w; lat<=w; lat+=res)` loses the +half_width sample to float rounding (0.1 steps end at +0.2): footprint is -0.30..+0.20 m, obstacles on the LEFT edge are missed",
+     "detail": "test_path_picker.cpp:164: CHECK failed: std::abs(pl.heading_deg) > 1e-3 -- left-side obstacle inside the footprint was not seen\n",
+     "infos": [
+      "obstacle 0.2-0.3 m left of path -> heading 0 deg; same on right -> heading 10 deg"
+     ]
+    },
+    {
+     "name": "symmetric_blockage_picks_a_side_consistently",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "symmetric blockage: heading -35 deg (right-turn bias if negative)"
+     ]
+    },
+    {
+     "name": "unknown_cells_beyond_allowance_are_not_driven_into",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "near_field_unknown_is_tolerated",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "small_map_edge_counts_as_unknown",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "resolution_change_gives_same_decision",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "0.10 m grid -> -30 deg, 0.05 m grid -> -30 deg"
+     ]
+    },
+    {
+     "name": "lookahead_and_clearance_parameters_take_effect",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "zero_resolution_costmap_does_not_hang",
+     "status": "XFAIL",
+     "xfail": "clear_distance_for_heading() loops `lat += res`; resolution 0 (or negative) is an infinite loop",
+     "detail": "test_path_picker.cpp:226: CHECK failed: ok -- path_picker hung on a costmap with resolution 0\n",
+     "infos": []
+    },
+    {
+     "name": "degenerate_costmaps_do_not_crash",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "costmap_with_nonzero_origin_is_handled",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "origin.x=-1: found=1 heading=0"
+     ]
+    },
+    {
+     "name": "chain_flat_empty_floor_yields_a_path_with_shipped_params",
+     "status": "XFAIL",
+     "xfail": "terrain_mapper cannot see the floor nearer than ~0.4 m (camera 0.17 m high, level) but path_picker only tolerates 0.3 m of unknown: an empty flat floor reports path_found=false",
+     "detail": "test_path_picker.cpp:301: CHECK failed: p.found -- no path reported on an empty flat floor\n",
+     "infos": [
+      "flat floor: corridor fully mapped from 0.4 m onward; picker allows unknown only up to 0.3 m",
+      "picker answer: heading 0.0 deg, path_found=0"
+     ]
+    },
+    {
+     "name": "chain_flat_floor_with_wider_unknown_allowance_works",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "chain_obstacle_beside_path_steers_around_it",
+     "status": "XFAIL",
+     "xfail": "mapper costmap is a camera wedge (+/-37 deg) with unknown stripes; picker treats unknown as blocked, so free space beside an obstacle looks worse (~0.7 m) than driving straight at the known 12 cm block (~1.1 m) and it keeps heading 0",
+     "detail": "test_path_picker.cpp:326: CHECK failed: p.heading_deg * side < -5.0 -- should steer away from the left block, got 0.0 deg\n",
+     "infos": [
+      "block on left: heading 0.0 deg found=1",
+      "block on right: heading 25.0 deg found=1"
+     ]
+    },
+    {
+     "name": "chain_heading_sign_convention_matches_avoidance",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "chain_close_wall_is_not_a_path_far_wall_is",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "chain_low_obstacle_is_walked_over_not_avoided",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_obstacle_avoidance",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "detector_sector_order_is_left_to_right",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_clear_scene_reports_no_obstacle",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_trigger_distance_boundary",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_ignores_invalid_depth_and_reports_max_range",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_only_scans_the_configured_row_band",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_sector_count_parameter_and_ragged_width",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_32fc1_works_when_millimeter_flag_is_off",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_32fc1_works_with_default_parameters",
+     "status": "XFAIL",
+     "xfail": "depth_is_millimeters defaults to true and then takes the uint16 branch for ANY encoding, so a 32FC1 (metres) image such as Gazebo's is read as garbage unless the override file is used",
+     "detail": "test_obstacle_avoidance.cpp:161: CHECK failed: std::abs(s - 3.0f) < 0.01f -- 32FC1 3.0 m plane read as 6.000 m\ntest_obstacle_avoidance.cpp:161: CHECK failed: std::abs(s - 3.0f) < 0.01f -- 32FC1 3.0 m plane read as 6.000 m\ntest_obstacle_avoidance.cpp:161: CHECK failed: std::abs(s - 3.0f) < 0.01f -- 32FC1 3.0 m plane read as 6.000 m\ntest_obstacle_avoidance.cpp:161: CHECK failed: std::abs(s - 3.0f) < 0.01f -- 32FC1 3.0 m plane read as 6.000 m\ntest_obstacle_avoidance.cpp:161: CHECK failed: std::abs(s - 3.0f) < 0.01f -- 32FC1 3.0 m plane read as 6.000 m\n",
+     "infos": []
+    },
+    {
+     "name": "detector_flat_floor_must_not_look_like_an_obstacle",
+     "status": "XFAIL",
+     "xfail": "rows 35-85% of a level camera 0.17 m above the floor see the floor itself from ~0.5 m, inside obstacle_trigger_m=1.0 m: an empty flat room raises /obstacle_detected permanently",
+     "detail": "test_obstacle_avoidance.cpp:174: CHECK failed: !d.flag -- empty flat floor raised obstacle_detected (nearest 0.53 m)\n",
+     "infos": [
+      "empty floor: nearest 'obstacle' 0.53 m (trigger 1.0 m)"
+     ]
+    },
+    {
+     "name": "detector_flat_floor_clean_if_trigger_is_inside_floor_distance",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_single_speckle_pixel_must_not_trigger",
+     "status": "XFAIL",
+     "xfail": "no outlier filtering: one stray 0.5 m pixel (stereo speckle, specular glint) in a clear scene sets /obstacle_detected",
+     "detail": "test_obstacle_avoidance.cpp:197: CHECK failed: !d.flag -- a single bad pixel raised obstacle_detected\n",
+     "infos": []
+    },
+    {
+     "name": "detector_zero_sectors_does_not_crash",
+     "status": "XFAIL",
+     "xfail": "num_sectors=0 divides by zero (width / num_sectors_)",
+     "detail": "test_obstacle_avoidance.cpp:209: CHECK failed: ok -- obstacle_detector crashed with num_sectors=0\n",
+     "infos": []
+    },
+    {
+     "name": "detector_rejects_bad_images_without_publishing",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "detector_measures_distance_accurately",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_silent_until_nav_enabled",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_nav_disable_publishes_immediate_stop",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_clear_path_drives_forward_at_configured_speed",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_follows_planned_heading_when_clear",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_slows_and_turns_toward_clearer_side_when_blocked_ahead",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_critical_distance_backs_off_while_turning_away",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_distance_thresholds_boundaries",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_planned_heading_never_overrides_close_obstacle",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_tie_between_sides_is_deterministic",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "equal clearance both sides -> angular.z -0.4 (negative = right-turn bias)"
+     ]
+    },
+    {
+     "name": "avoid_output_stays_within_gait_limits_fuzz",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_handles_short_or_empty_sector_arrays",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoid_reacts_to_obstacles_in_footprint_beside_the_centre_sector",
+     "status": "XFAIL",
+     "xfail": "only the centre sector (+/-7 deg, about +/-0.13 m at 1 m) is checked, but the footprint is +/-0.30 m: an obstacle 0.35 m ahead in the adjacent sector is ignored and the rover drives on",
+     "detail": "test_obstacle_avoidance.cpp:358: CHECK failed: t.linear.x < 0.08 - 1e-9 || std::abs(t.angular.z) > 0.0 -- full speed straight ahead with an obstacle at 0.35 m inside the footprint\ntest_obstacle_avoidance.cpp:358: CHECK failed: t.linear.x < 0.08 - 1e-9 || std::abs(t.angular.z) > 0.0 -- full speed straight ahead with an obstacle at 0.35 m inside the footprint\n",
+     "infos": []
+    },
+    {
+     "name": "avoid_nan_sector_must_not_mean_clear",
+     "status": "XFAIL",
+     "xfail": "NaN compares false against every threshold, so a NaN centre sector falls through to the 'path clear, full speed' branch",
+     "detail": "test_obstacle_avoidance.cpp:369: CHECK failed: t.linear.x < 0.08 - 1e-9 -- drove at full speed on a NaN sector\n",
+     "infos": []
+    },
+    {
+     "name": "avoid_heading_beyond_90deg_must_not_reverse",
+     "status": "XFAIL",
+     "xfail": "linear.x = linear_speed * cos(planned_heading) is not clamped, so a heading >90 deg (stale or garbage /planned_heading) commands reverse while 'clear'",
+     "detail": "test_obstacle_avoidance.cpp:379: CHECK failed: t.linear.x >= 0.0 -- reversing (-0.033) on a clear path\n",
+     "infos": []
+    },
+    {
+     "name": "avoid_after_reenable_still_ignores_until_sector_arrives",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_gait_controller",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "boots_sitting_with_sit_pose_and_not_ready",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "joint_names_are_18_unique_in_leg_order",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "stand_up_takes_stand_time_and_ready_comes_last",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "no_walking_during_stand_up_or_without_nav",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "nav_enable_with_fresh_cmd_starts_walking",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "cmd_vel_timeout_stops_walking_and_recentres_legs",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "legs idle 1.20 s after the last /cmd_vel (cmd_timeout_s=0.5)"
+     ]
+    },
+    {
+     "name": "nav_disable_while_walking_stops_gait_cleanly",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "commands_are_clamped_to_gait_limits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "nan_cmd_vel_must_not_reach_the_servos",
+     "status": "XFAIL",
+     "xfail": "std::clamp(NaN, lo, hi) returns NaN, so a NaN /cmd_vel poisons every joint command",
+     "detail": "test_gait_controller.cpp:182: CHECK failed: all_finite(GC::js()) -- NaN joint positions published to /joint_commands\n",
+     "infos": []
+    },
+    {
+     "name": "inf_cmd_vel_is_clamped_to_limits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "sits_down_when_stand_request_withdrawn",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "will_not_sit_down_while_still_walking",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "stand_request_reversal_mid_rise_is_smooth",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "full_mission_profile_is_smooth_finite_and_reachable",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "peak joint speed over the mission: 3.33 rad/s"
+     ]
+    },
+    {
+     "name": "publish_rates_are_50hz_and_10hz",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "calibration_signs_and_offsets_are_applied_per_joint",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "wrong_length_calibration_falls_back_with_warning",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "infeasible_geometry_warns_but_stays_finite",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "restand_after_sitting_works",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "stand_request_alone_without_nav_never_walks_even_with_cmd_spam",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_state_machine",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "happy_path_visits_every_state_in_order",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "needs_no_operator_input_to_reach_traverse",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "stand_up_blocks_until_posture_ready_and_keeps_requesting",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "stand_up_ignores_posture_ready_false_messages",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "costmaps_during_settle_window_are_discarded",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "left MAP_TERRAIN 1.40 s after entering (map_settle_s = 1.2)"
+     ]
+    },
+    {
+     "name": "costmap_sent_before_map_terrain_is_not_reused",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "map_settle_parameter_is_honoured",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "no_path_loops_back_to_mapping_without_driving",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "30 s with no path: 17 map passes, 16 pick passes"
+     ]
+    },
+    {
+     "name": "path_found_sent_outside_pick_path_is_ignored",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "nav_enabled_is_true_only_while_in_traverse",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "obstacle_during_traverse_disables_nav_within_one_tick_and_remaps",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "obstacle_flag_outside_traverse_is_harmless",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "persistent_obstacle_flag_does_not_livelock_the_rover",
+     "status": "XFAIL",
+     "xfail": "TRAVERSE_PATH exits on the very next tick whenever /obstacle_detected is true, even though the planner just found a clear heading; with the flag permanently high (e.g. the flat-floor false positive, or any object within 1 m) nav is enabled for ~0.2 s per cycle and the rover never walks",
+     "detail": "test_state_machine.cpp:236: CHECK failed: longest >= 2.0 -- longest walking window only 0.20 s\n",
+     "infos": [
+      "60 s with permanent obstacle flag: nav enabled 5.8 s in total, longest stretch 0.20 s, 29 enable pulses"
+     ]
+    },
+    {
+     "name": "state_machine_never_withdraws_stand_request",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "obstacle_flicker_does_not_stall_mapping_cycle",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "obstacle_forces_fresh_map_not_reuse_of_old_one",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "perceive_waits_for_live_sensor_data",
+     "status": "XFAIL",
+     "xfail": "PERCEIVE is a stub: the machine proceeds to STAND_UP and mapping with no depth stream at all",
+     "detail": "test_state_machine.cpp:280: CHECK failed: SM::state() == \"PERCEIVE\" || SM::state() == \"START\" -- left PERCEIVE (now MAP_TERRAIN) without any sensor data\n",
+     "infos": []
+    },
+    {
+     "name": "parameter_defaults_and_state_names_cover_all_states",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "restarted_state_machine_revokes_nav_enabled",
+     "status": "XFAIL",
+     "xfail": "after a state-machine restart nobody publishes /nav_enabled=false: gait/avoidance nodes keep the stale 'true' and a robot that was mid-traverse keeps obeying commands",
+     "detail": "test_state_machine.cpp:310: CHECK failed: revoked -- no nav_enabled=false after restart (state now MAP_TERRAIN)\n",
+     "infos": []
+    },
+    {
+     "name": "late_starting_peer_learns_nav_enabled",
+     "status": "XFAIL",
+     "xfail": "nav_enabled=true is published exactly once on entering TRAVERSE_PATH (stand_request, by contrast, is re-sent every tick): a reactive_avoidance/gait node that starts or restarts later stays gated forever",
+     "detail": "test_state_machine.cpp:327: CHECK failed: drove -- late-started avoidance node never became enabled while the machine sits in TRAVERSE_PATH\n",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_config_consistency",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "yaml_files_load_and_have_expected_nodes",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "calibration_vectors_have_18_unit_entries",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "avoidance_speeds_do_not_exceed_gait_limits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "obstacle_threshold_is_below_what_the_legs_can_clear",
+     "status": "XFAIL",
+     "xfail": "terrain_mapper marks >5 cm as obstacle but step_height_m is only 4 cm: a 4-5 cm obstacle is 'free' to the planner yet taller than the foot lift (and the lift has no safety margin)",
+     "detail": "test_config_consistency.cpp:89: CHECK failed: thresh <= step -- threshold 0.050 m > step height 0.040 m\n",
+     "infos": [
+      "obstacle threshold 50 mm vs foot lift 40 mm"
+     ]
+    },
+    {
+     "name": "rover_half_width_covers_the_real_footprint",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "footprint half-width 0.276 m (feet), body 0.110 m, half-length 0.248 m; picker uses 0.300 m"
+     ]
+    },
+    {
+     "name": "camera_height_matches_stand_height_plus_mount",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "planner_geometry_is_self_consistent",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "widest heading needs 2.90 m lateral coverage; costmap half-width is 2.00 m (wide headings are clipped)"
+     ]
+    },
+    {
+     "name": "detector_trigger_matches_avoidance_safe_distance",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "velocity_command_timeout_has_margin_over_sensor_period",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "gait_yaml_reaches_every_target_for_all_gaits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "gait_max_linear_is_achievable_within_stride_clamp",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "max_linear needs half-stride 24.0 mm; clamp is 40.0 mm"
+     ]
+    },
+    {
+     "name": "gazebo_override_makes_32fc1_depth_work_in_detector",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    }
+   ]
+  },
+  {
+   "name": "test_system_faults",
+   "kind": "cpp",
+   "results": [
+    {
+     "name": "shipped_parameters_walk_on_an_empty_flat_floor",
+     "status": "XFAIL",
+     "xfail": "with params.yaml as shipped, the full stack never leaves the map/evaluate/pick loop on an empty floor: obstacle_detector sees the floor as an obstacle and path_picker finds no path (see detector_flat_floor_* and chain_flat_empty_floor_* tests)",
+     "detail": "test_system_faults.cpp:110: CHECK failed: Stack::last_time_in(\"WALKING\") >= 0 -- the rover never started walking in 60 s on an empty floor\n",
+     "infos": [
+      "state transitions in 60 s: EVALUATE_TRAVERSABILITY x32  MAP_TERRAIN x32  PERCEIVE x1  PICK_PATH x31  STAND_UP x1  ",
+      "/cmd_vel messages: 0"
+     ]
+    },
+    {
+     "name": "workaround_parameters_reach_traverse_and_walk_forward",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "startup_sequence_timing_is_sane",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "stand-up requested at 0.4 s, first WALKING at 4.7 s"
+     ]
+    },
+    {
+     "name": "depth_loss_mid_traverse_stops_the_legs",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "legs stopped 0.8 s after the depth stream died (cmd_timeout_s = 0.5)"
+     ]
+    },
+    {
+     "name": "depth_loss_must_pull_the_state_machine_out_of_traverse",
+     "status": "XFAIL",
+     "xfail": "the state machine has no sensor watchdog: after the depth stream dies it stays in TRAVERSE_PATH with nav_enabled=true forever, and resumes walking without re-mapping the moment frames return",
+     "detail": "test_system_faults.cpp:165: CHECK failed: Stack::rover_state() != \"TRAVERSE_PATH\" -- still in TRAVERSE_PATH 10 s after sensor loss\n",
+     "infos": []
+    },
+    {
+     "name": "sensor_returning_after_outage_recovers_without_crash",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "garbage_depth_frames_do_not_crash_or_poison_servos",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "wrong_sized_or_wrong_encoding_frames_are_survivable",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "depth_noise_and_dropouts_do_not_break_the_cycle",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "with 10% dropout + 1 cm noise: TRAVERSE entered 1 time(s), state changes 6"
+     ]
+    },
+    {
+     "name": "wall_appearing_mid_traverse_triggers_avoidance_and_stop",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "blocked_forever_never_drives_into_the_wall",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "distant_wall_lets_rover_walk_then_stops_before_reaching_it",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "external_estop_via_nav_enabled_stops_the_gait",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": []
+    },
+    {
+     "name": "velocity_and_joint_limits_hold_over_the_whole_run",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "whole run: peak |q| = 2.07 rad, peak joint speed = 2.84 rad/s"
+     ]
+    },
+    {
+     "name": "message_rates_in_traverse_are_as_designed",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "/cmd_vel messages in 30 s: 254 (depth at 10 Hz)"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "test_static",
+   "kind": "static",
+   "results": [
+    {
+     "name": "joint_names_agree_everywhere",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.01
+    },
+    {
+     "name": "leg_mount_geometry_matches_gait_package",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "urdf_and_mjcf_describe_the_same_robot",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "link_lengths_masses_and_feet_agree",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "sensors_and_world_parity_between_gazebo_and_mujoco",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "Gazebo hfov 73.0 deg -> vfov 49.6 deg; MuJoCo fovy 50.0 deg"
+     ],
+     "secs": 0.0
+    },
+    {
+     "name": "generated_files_are_up_to_date_with_the_generator",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "generator_defaults_match_the_gait_and_mapper_params",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "every_yaml_key_is_declared_by_its_node",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.01
+    },
+    {
+     "name": "yaml_values_equal_code_defaults",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "0 YAML/code default mismatches"
+     ],
+     "secs": 0.0
+    },
+    {
+     "name": "every_declared_parameter_is_present_in_yaml",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "parameters only settable in code (not in YAML): none"
+     ],
+     "secs": 0.0
+    },
+    {
+     "name": "package_manifests_cover_every_included_ros_package",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "launch_files_reference_real_executables_and_configs",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "gazebo_bridge_topics_match_node_subscriptions",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "gazebo_depth_format_has_a_matching_override",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    },
+    {
+     "name": "tests_are_registered_with_cmake_for_colcon_test",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.0
+    }
+   ]
+  },
+  {
+   "name": "test_sim_gait",
+   "kind": "sim",
+   "results": [
+    {
+     "name": "stand_up_reaches_height_level_and_all_feet_down",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "standing z=0.124 m, tilt=0.00 deg"
+     ],
+     "secs": 0.23
+    },
+    {
+     "name": "sit_down_is_stable_and_low",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "seated z=0.038 m"
+     ],
+     "secs": 0.37
+    },
+    {
+     "name": "nav_disabled_robot_stays_put_despite_cmd_spam",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.62
+    },
+    {
+     "name": "walk_forward_distance_and_drift",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "1.669 m of 1.80 m commanded (93%), lateral -1.6 cm, yaw -0.0 deg"
+     ],
+     "secs": 0.94
+    },
+    {
+     "name": "walk_reverse_distance_and_drift",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "reverse: 93% of command, lateral -1.6 cm"
+     ],
+     "secs": 1.23
+    },
+    {
+     "name": "speed_is_linear_in_command",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "cmd 0.02 m/s -> 89%",
+      "cmd 0.04 m/s -> 91%",
+      "cmd 0.06 m/s -> 93%",
+      "cmd 0.08 m/s -> 93%"
+     ],
+     "secs": 3.48
+    },
+    {
+     "name": "turn_in_place_rate_matches_command",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "turn rate 0.318 rad/s (cmd 0.40) = yaw gain 0.80 (forward gain is ~0.93); position drift 0.2 cm"
+     ],
+     "secs": 1.96
+    },
+    {
+     "name": "strafe_matches_command_both_ways",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "strafe cmd +0.05: 95%, forward drift -0.0 cm, yaw +0.0 deg",
+      "strafe cmd -0.05: 96%, forward drift -0.0 cm, yaw -0.0 deg"
+     ],
+     "secs": 1.99
+    },
+    {
+     "name": "arc_motion_follows_commanded_curvature",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "arc yaw rate 0.194 rad/s (cmd 0.25)",
+      "arc radius target 0.20 m, x-span 0.49 m"
+     ],
+     "secs": 1.26
+    },
+    {
+     "name": "body_stays_level_across_all_gaits",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "forward: max tilt 0.51 deg, height ripple 3.5 mm",
+      "turn: max tilt 0.65 deg, height ripple 5.2 mm",
+      "strafe: max tilt 0.86 deg, height ripple 3.7 mm",
+      "arc: max tilt 0.60 deg, height ripple 3.8 mm"
+     ],
+     "secs": 2.77
+    },
+    {
+     "name": "never_fewer_than_three_feet_down_nominal_ground",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 1.93
+    },
+    {
+     "name": "slope_climbing_table",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      " 5 deg uphill:  80% of commanded speed, max tilt 5.2 deg",
+      "10 deg uphill:  65% of commanded speed, max tilt 10.2 deg",
+      "15 deg uphill:  49% of commanded speed, max tilt 15.2 deg",
+      "20 deg uphill:  30% of commanded speed, max tilt 20.2 deg"
+     ],
+     "secs": 3.53
+    },
+    {
+     "name": "steep_slope_stalls_without_tipping",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "25 deg uphill: 6% progress (limit of climbing ability)"
+     ],
+     "secs": 0.89
+    },
+    {
+     "name": "downhill_slope_is_controlled",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "15 deg downhill: 127% of commanded speed"
+     ],
+     "secs": 1.23
+    },
+    {
+     "name": "side_slope_drift_is_small",
+     "status": "XFAIL",
+     "xfail": "open-loop gait has no heading/lateral correction: on a 10 deg side slope the robot slides downhill ~0.4 m in 26 s (27% of its forward path); nothing in the stack uses the IMU",
+     "detail": "slid 0.40 m sideways over 1.45 m forward",
+     "infos": [
+      "10 deg side slope: forward 1.45 m, sideways slide -0.40 m"
+     ],
+     "secs": 1.06
+    },
+    {
+     "name": "side_slope_does_not_tip_up_to_20_degrees",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 1.95
+    },
+    {
+     "name": "friction_sweep",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "mu=1.20:  93% progress, >=3 feet 100% of the time (worst 3)",
+      "mu=0.80:  85% progress, >=3 feet 100% of the time (worst 3)",
+      "mu=0.50:  77% progress, >=3 feet 95% of the time (worst 1)",
+      "mu=0.30:  66% progress, >=3 feet 97% of the time (worst 2)",
+      "mu=0.15:  52% progress, >=3 feet 96% of the time (worst 1)"
+     ],
+     "secs": 5.47
+    },
+    {
+     "name": "soft_ground_still_walks",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "soft contact solref=0.05 0.5: 97%, z=0.116",
+      "soft contact solref=0.1 0.3: 102%, z=0.112"
+     ],
+     "secs": 1.81
+    },
+    {
+     "name": "lunar_gravity_walks_without_launching",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "1/6 g: 88% progress, peak body height 0.127 m"
+     ],
+     "secs": 0.91
+    },
+    {
+     "name": "asteroid_gravity_stays_attached_and_upright",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "1.5% g: progress 81%, peak z 0.138 m, >=3 feet 4% of the time, airborne (0 feet) 68% of the time"
+     ],
+     "secs": 0.77
+    },
+    {
+     "name": "asteroid_gravity_keeps_three_feet_down",
+     "status": "XFAIL",
+     "xfail": "at 1.5% g (Psyche-like) the position-controlled tripod gait has no real traction: the robot hops with fewer than 3 feet down most of the time, so motion is momentum, not controlled stepping",
+     "detail": ">=3 feet down only 4% of the time",
+     "infos": [],
+     "secs": 0.7
+    },
+    {
+     "name": "cold_servo_torque_derating",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "servo torque x0.5: 93% progress, z=0.119",
+      "servo torque x0.25: 93% progress, z=0.119",
+      "servo torque x0.08 (0.24 N*m): body height 0.020 m -> robot collapses (limit is between x0.08 and x0.15)"
+     ],
+     "secs": 2.44
+    },
+    {
+     "name": "servo_command_latency_tolerance",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "command latency 100 ms: 93% progress",
+      "command latency 200 ms: 93% progress",
+      "command latency 400 ms: 92% progress"
+     ],
+     "secs": 2.66
+    },
+    {
+     "name": "step_over_3cm_wide_barrier",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "3 cm barrier (2 m wide): reached x=2.90 m, max tilt 6.0 deg"
+     ],
+     "secs": 2.1
+    },
+    {
+     "name": "step_over_4cm_wide_barrier_matches_step_height",
+     "status": "XFAIL",
+     "xfail": "step_height_m is 4 cm (and params.yaml says 'step over ~step_height_m') but a 4 cm full-width barrier stops the robot dead: effective crossing limit is ~3 cm. The mapper still calls <=5 cm free",
+     "detail": "blocked at x=0.23 m by a 4 cm barrier",
+     "infos": [
+      "4 cm barrier: reached x=0.23 m (barrier spans 0.45..0.75)"
+     ],
+     "secs": 2.3
+    },
+    {
+     "name": "tall_barriers_block_without_falling_or_climbing",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "6 cm barrier: stopped at x=0.23 m",
+      "8 cm barrier: stopped at x=0.23 m",
+      "12 cm barrier: stopped at x=0.23 m"
+     ],
+     "secs": 4.13
+    },
+    {
+     "name": "narrow_obstacles_are_straddled_not_hit",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 5.03
+    },
+    {
+     "name": "push_recovery_standing",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "30 N sideways: peak tilt 2.7 deg, tilt after 5 s 0.00 deg",
+      "60 N sideways: peak tilt 6.8 deg, tilt after 5 s 0.00 deg",
+      "20 N forward: peak tilt 0.2 deg, tilt after 5 s 0.00 deg"
+     ],
+     "secs": 1.95
+    },
+    {
+     "name": "push_recovery_while_walking",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0.75
+    },
+    {
+     "name": "recovers_from_dropped_tilted_pose",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 1.18
+    },
+    {
+     "name": "recovers_from_being_on_its_side_or_inverted",
+     "status": "XFAIL",
+     "xfail": "no self-righting: nothing reads /imu, so a robot that lands on its side or upside down stays there with the legs flailing (z = 0.02 m)",
+     "detail": "started at roll 110: ended roll -180, z 0.020\nstarted at roll 180: ended roll 180, z 0.020",
+     "infos": [],
+     "secs": 0.82
+    },
+    {
+     "name": "limp_leg_does_not_topple_the_robot",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "leg 0 unpowered:  63% progress, yaw   -8.8 deg, tilt  8.6 deg",
+      "leg 1 unpowered:  64% progress, yaw   +6.3 deg, tilt  8.6 deg",
+      "leg 2 unpowered:  39% progress, yaw  -76.5 deg, tilt  6.3 deg",
+      "leg 3 unpowered:  38% progress, yaw  +77.7 deg, tilt  6.3 deg",
+      "leg 4 unpowered:  56% progress, yaw  -31.1 deg, tilt  8.2 deg",
+      "leg 5 unpowered:  57% progress, yaw  +29.3 deg, tilt  8.2 deg"
+     ],
+     "secs": 5.44
+    },
+    {
+     "name": "stuck_servo_does_not_topple_the_robot",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "leg1 femur stuck up:  71% progress, yaw   -3.8 deg, tilt 7.0 deg",
+      "leg2 tibia stuck folded:  76% progress, yaw  -30.5 deg, tilt 0.5 deg",
+      "leg4 coxa stuck out:  84% progress, yaw  -36.3 deg, tilt 0.5 deg"
+     ],
+     "secs": 2.92
+    },
+    {
+     "name": "servo_failure_is_detected_and_reported",
+     "status": "XFAIL",
+     "xfail": "a dead servo goes unnoticed: nothing consumes /joint_states, so the stack keeps commanding forward motion (here 63% progress with a spinning/ drifting body) with no warning, nav stop or state change",
+     "detail": "no fault indication of any kind",
+     "infos": [
+      "after 30 s with a dead servo: warnings=0 errors=0 nav=1 gait=WALKING"
+     ],
+     "secs": 0.94
+    },
+    {
+     "name": "endurance_120s_no_drift_or_degradation",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "124 s: speed first half 0.0556 m/s, second half 0.0557 m/s; mean actuator effort 3.83 -> 3.82 N*m; max tilt 0.46 deg; net lateral -0.06 m, yaw -0.0 deg"
+     ],
+     "secs": 3.9
+    },
+    {
+     "name": "endurance_30min",
+     "status": "SKIP",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0
+    },
+    {
+     "name": "repeatability_across_start_poses",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "5 runs, random start pose/heading: distance ratio 0.928 +/- 0.0008 (CV 0.09%), worst lateral drift 2.9 cm"
+     ],
+     "secs": 3.6
+    },
+    {
+     "name": "repeatability_20_runs",
+     "status": "SKIP",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 0
+    }
+   ]
+  },
+  {
+   "name": "test_sim_autonomy",
+   "kind": "sim",
+   "results": [
+    {
+     "name": "shipped_parameters_make_progress_on_empty_floor",
+     "status": "XFAIL",
+     "xfail": "with params.yaml as shipped the rover never moves on an empty flat floor: obstacle_detector reads the floor as an obstacle (/obstacle_detected permanently true) and path_picker finds no path (unknown near-field > 0.3 m). Reproduced here in physics, not just message flow",
+     "detail": "rover moved only 0.00 m in 60 s",
+     "infos": [
+      "60 s on an empty floor: moved 0.00 m; states {'-': 9, 'PERCEIVE': 10, 'STAND_UP': 120, 'MAP_TERRAIN': 2240, 'EVALUATE_TRAVERSABILITY': 311, 'PICK_PATH': 310}"
+     ],
+     "secs": 9.09
+    },
+    {
+     "name": "workaround_parameters_walk_without_falling",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "path length 3.64 m, net 1.60 m, 2771 of 3000 ticks in TRAVERSE_PATH, tilt 0.7 deg"
+     ],
+     "secs": 9.66
+    },
+    {
+     "name": "startup_reaches_walking_quickly",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "first WALKING at 4.7 s"
+     ],
+     "secs": 3.32
+    },
+    {
+     "name": "empty_floor_path_is_straight",
+     "status": "XFAIL",
+     "xfail": "planned heading jitters frame to frame (about +25 / 0 / -15 deg) because the 10 cm costmap has sparse unknown stripes and a camera wedge: on an empty floor the rover meanders (net displacement a third of path length) instead of walking straight",
+     "detail": "straightness 0.50",
+     "infos": [
+      "path 3.43 m, net 1.71 m, straightness 0.50"
+     ],
+     "secs": 9.72
+    },
+    {
+     "name": "never_touches_a_tall_wall_with_good_depth",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "wall face at x=1.45: rover reached x=0.80, contacts with obstacle: 0"
+     ],
+     "secs": 15.38
+    },
+    {
+     "name": "tall_box_in_path_is_not_hit_and_rover_stays_upright",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [],
+     "secs": 15.54
+    },
+    {
+     "name": "obstacle_course_is_completed",
+     "status": "XFAIL",
+     "xfail": "rover approaches an obstacle to ~0.5 m and then stalls forever in the map/evaluate/pick loop: the picker cannot see free space beside it (camera wedge + unknown = blocked), so it never routes around",
+     "detail": "stopped at x=0.24 m",
+     "infos": [
+      "shipped 3-obstacle world: furthest x = 0.24 m after 240 s (course ends ~3.0 m)"
+     ],
+     "secs": 43.36
+    },
+    {
+     "name": "low_steppable_box_is_walked_over",
+     "status": "XFAIL",
+     "xfail": "a 3 cm box is steppable (gait test passes it) and the mapper calls it free, but obstacle_detector sees its top surface at ~0.43 m (inside the trigger) and the rover halts in front of it",
+     "detail": "stopped at x=0.21 m",
+     "infos": [
+      "3 cm box at x=1.0: furthest x = 0.21 m"
+     ],
+     "secs": 15.53
+    },
+    {
+     "name": "depth_stream_loss_stops_the_robot_quickly",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "speed before loss 0.065 m/s, 3 s after 0.000 m/s"
+     ],
+     "secs": 7.6
+    },
+    {
+     "name": "external_estop_stops_the_robot",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "speed before e-stop 0.065 m/s, 3.5 s after 0.000 m/s"
+     ],
+     "secs": 7.36
+    },
+    {
+     "name": "dropouts_and_noise_do_not_cause_falls_or_collisions",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "10% dropout + 1 cm noise with a wall ahead: path 1.05 m, hits 0"
+     ],
+     "secs": 12.82
+    },
+    {
+     "name": "shadow_patches_do_not_cause_collisions",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "30% patchy depth loss with a wall ahead: rover x_max 0.53, hits 0"
+     ],
+     "secs": 16.37
+    },
+    {
+     "name": "wall_with_no_depth_returns_is_not_driven_into",
+     "status": "XFAIL",
+     "xfail": "an obstacle that returns NO depth (black, specular, transparent) is invisible: the detector skips zero pixels and the state machine ignores path_found/unknown space while in TRAVERSE_PATH, so the rover walks straight into it and keeps pushing",
+     "detail": "collided (2477 contact ticks): {'geom9': 1244, 'geom5': 1233}",
+     "infos": [
+      "reflective wall at x=1.45: rover reached x=1.23, obstacle contact ticks: 2477"
+     ],
+     "secs": 17.15
+    },
+    {
+     "name": "depth_speckle_does_not_freeze_the_rover",
+     "status": "XFAIL",
+     "xfail": "no outlier rejection: 0.2% of pixels (about 1 in 500) returning 0.3 m - stereo speckle, specular glints, dust - keep /obstacle_detected high forever and the rover never takes a step",
+     "detail": "rover moved only 0.00 m",
+     "infos": [
+      "with speckle: moved 0.00 m, TRAVERSE ticks 0"
+     ],
+     "secs": 9.89
+    },
+    {
+     "name": "slope_and_low_friction_do_not_topple_the_autonomous_stack",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "5 deg slope: path 2.31 m, tilt 5.6 deg",
+      "mu 0.3: path 1.68 m, tilt 0.8 deg",
+      "soft ground: path 2.72 m, tilt 0.6 deg"
+     ],
+     "secs": 19.68
+    },
+    {
+     "name": "autonomous_stack_climbs_a_5_degree_ramp",
+     "status": "XFAIL",
+     "xfail": "5 deg uphill slope: terrain_mapper (flat-plane reference) turns the ramp into a wall, so the autonomous stack stops although the open-loop gait climbs 5 degrees at 80% speed",
+     "detail": "net displacement 1.41 m",
+     "infos": [
+      "5 deg ramp: path 3.74 m, net 1.41 m"
+     ],
+     "secs": 10.0
+    },
+    {
+     "name": "low_gravity_closed_loop_stays_upright",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "1/6 g: path 2.22 m, peak height 0.128 m, tilt 0.2 deg",
+      "1.5% g: path 2.24 m, peak height 0.140 m, tilt 3.0 deg"
+     ],
+     "secs": 13.41
+    },
+    {
+     "name": "angled_wall_approach_does_not_touch_the_wall",
+     "status": "XFAIL",
+     "xfail": "angled approach to a wall clips it: only the centre sector (+/-0.13 m at 1 m) is checked, so a leg (footprint +/-0.30 m) touches the wall before the rover reacts. Deterministic reproduction of one of the ~15% of randomised runs that do this",
+     "detail": "touched the wall for 370 ticks",
+     "infos": [
+      "start yaw -22 deg: 370 contact ticks with the wall ({'geom9': 21, 'geom17': 85, 'geom16': 196, 'body': 68})"
+     ],
+     "secs": 7.62
+    },
+    {
+     "name": "repeatability_closed_loop_4_runs_never_fall",
+     "status": "PASS",
+     "xfail": "",
+     "detail": "",
+     "infos": [
+      "4/4 runs without fall AND without wall contact; 0/4 touched the wall; path lengths 1.0-2.3 m"
+     ],
+     "secs": 30.28
+    },
+    {
+     "name": "repeatability_closed_loop_20_runs",
+     "status": "SKIP",
+     "xfail": "randomised wall approaches (start heading +/-0.5 rad, 3% dropouts): about 3 in 20 runs touch the wall",
+     "detail": "",
+     "infos": [],
+     "secs": 0
+    }
+   ]
+  }
+ ]
+}
