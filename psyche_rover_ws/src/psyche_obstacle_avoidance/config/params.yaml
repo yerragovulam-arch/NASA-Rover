@@ -1,0 +1,20 @@
+obstacle_detector:
+  ros__parameters:
+    depth_topic: "/oak/stereo/image_raw"   # confirm against `ros2 topic list` on your Orin
+    num_sectors: 5
+    min_valid_range_m: 0.15
+    max_valid_range_m: 6.0
+    obstacle_trigger_m: 1.0
+    row_band_start_frac: 0.35
+    row_band_end_frac: 0.85
+    depth_is_millimeters: true
+
+reactive_avoidance:
+  ros__parameters:
+    safe_distance_m: 1.0
+    critical_distance_m: 0.4
+    linear_speed: 0.08        # hexapod walking speed; keep <= gait max_linear_mps
+    angular_speed: 0.4        # keep <= gait max_angular_rps
+    reverse_speed: 0.04
+    heading_kp: 1.0
+    cmd_vel_topic: "/cmd_vel"

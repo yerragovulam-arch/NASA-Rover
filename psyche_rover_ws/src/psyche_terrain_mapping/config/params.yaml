@@ -1,0 +1,23 @@
+terrain_mapper:
+  ros__parameters:
+    depth_topic: "/oak/stereo/image_raw"
+    camera_info_topic: "/oak/stereo/camera_info"
+    camera_height_m: 0.17       # FILLER ESTIMATE: stand_height_m (0.12) + ~5 cm mount above body. Measure and update.
+    camera_tilt_deg: 0.0        # FILLER ESTIMATE: facing straight ahead. Measure and update.
+    grid_resolution_m: 0.10
+    grid_range_m: 4.0
+    grid_width_m: 4.0
+    obstacle_height_thresh_m: 0.05   # hexapod can step over ~step_height_m (4 cm); taller = obstacle
+    min_valid_range_m: 0.15
+    max_valid_range_m: 6.0
+    pixel_stride: 2
+
+path_picker:
+  ros__parameters:
+    max_heading_deg: 60.0       # hexapod can pivot in place, so allow wider headings
+    heading_step_deg: 5.0
+    lookahead_m: 3.0
+    rover_half_width_m: 0.30    # PLACEHOLDER: footprint radius incl. leg spread (~0.16 reach + 0.084 mid-leg mount + 0.04 stride)
+    step_m: 0.1
+    min_acceptable_clear_m: 0.5
+    unknown_allowance_m: 0.3
